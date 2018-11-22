@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Post from './Post'
 import {
     Box,
     Flex,
@@ -20,9 +21,17 @@ export default class ViewPosts extends Component {
                 votes: 5,
                 lat: 90,
                 lng: 90,
-                createdAt: new Date(),
+                createdAt: '10h',
                 userid: 'asdf',
                 myVote: 0,
+                replies: [
+                  {
+                    content: 'reply 1'
+                  },
+                  {
+                    content: 'reply 2'
+                  },
+                ]
             },
             { 
                 id: 2,
@@ -30,9 +39,20 @@ export default class ViewPosts extends Component {
                 votes: 5,
                 lat: 90,
                 lng: 90,
-                createdAt: new Date(),
+                createdAt: '5h',
                 userid: 'asdf',
                 myVote: 0,
+                replies: [
+                  {
+                    content: 'reply 1'
+                  },
+                  {
+                    content: 'reply 2'
+                  },
+                  {
+                    content: 'reply 3'
+                  }
+                ]
             },
         ];
         this.state = { messages };
@@ -55,21 +75,7 @@ export default class ViewPosts extends Component {
         return (
             <Box p="3">
                 {this.state.messages.map(m => {
-                    return <>
-                    <Flex justifyContent="space-between">
-                        <Box>
-                        <Text>
-                            {m.message}
-                        </Text>
-                        </Box>
-                        <Box>
-                            <p onClick={() => this.changeVotes(m.id,1)}>^</p>
-                            {m.votes + m.myVote}
-                            <p  onClick={() => this.changeVotes(m.id,-1)}>v</p>
-                        </Box>
-                    </Flex>
-                    <hr/>
-                    </>
+                  return <Post post={m} />
                 })}
             </Box>
         )
