@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import ViewPosts from './ViewPosts'
+import Posts from './posts'
 import * as serviceWorker from './serviceWorker';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStroopwafel, faAngleDown } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faStroopwafel)
-library.add(faAngleDown)
+import { ActionCableProvider } from 'react-actioncable-provider';
+import { API_WS_ROOT } from './constants';
 
 
-ReactDOM.render(<ViewPosts />, document.getElementById('root'));
+ReactDOM.render(
+  <ActionCableProvider url={API_WS_ROOT}>
+    <Posts />
+  </ActionCableProvider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
