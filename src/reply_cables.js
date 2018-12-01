@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { ActionCable } from 'react-actioncable-provider';
 
-const Cable = ({ posts, handleReceivedReply }) => {
+const ReplyCables = ({ posts, handleReceivedReply }) => {
   return (
     <Fragment>
       {posts.map( post => {
@@ -17,4 +17,4 @@ const Cable = ({ posts, handleReceivedReply }) => {
   )
 }
 
-export default Cable;
+export default ReplyCables;
