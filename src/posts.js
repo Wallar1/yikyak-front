@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Post from './post'
-import { Box, Flex, Card, Image, Heading, Text } from 'rebass'
+import { Box } from 'rebass'
 import { ActionCable } from 'react-actioncable-provider';
 import { API_ROOT, HEADERS } from './constants';
 import NewPostForm from './new_post_form';
@@ -30,7 +30,6 @@ export default class Posts extends Component {
   }
 
   handleClick = id => {
-    //let activePost = id === this.state.activePost ? null : id
     this.setState({activePost: id})
   }
 
@@ -43,12 +42,6 @@ export default class Posts extends Component {
     }else{
       posts[index] = post
     }
-    // if(found_post){
-    //   found_post = post
-    //   console.log(found_post, posts)
-    // }else{
-    //   posts = [...posts,post]
-    // }
     this.setState({posts})
   }
 
