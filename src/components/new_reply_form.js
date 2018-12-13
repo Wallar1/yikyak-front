@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { API_ROOT, HEADERS, animals } from './constants';
+import { API_ROOT, HEADERS, animals } from '../constants';
 
 export default class NewReplyForm extends Component {
   state = {

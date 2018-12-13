@@ -1,9 +1,13 @@
 import React,{Component} from 'react'
 import { Box, Flex, Text } from 'rebass'
-import RepliesArea from './replies_area';
+import Replies from './replies';
 import { FaRegThumbsDown,  FaRegThumbsUp } from 'react-icons/fa';
+import { Route, Link } from 'react-router-dom'
 
 export default class Post extends Component{
+  constructor(props){
+    super(props)
+  }
 
   handleClick = (e) => {
     this.props.handleClick(this.props.post.id)
@@ -41,7 +45,7 @@ export default class Post extends Component{
   render = () => {
     const vote_style = this.hand_style()
     return (
-      <div>
+      <>
         <Flex justifyContent="space-between">
           <Box>
             <Text>
@@ -61,17 +65,11 @@ export default class Post extends Component{
             </p>
           </Box>
         </Flex>
-        <Box onClick={this.handleClick} >
+        <Link to={`/posts/${this.props.post.id}`}>
           {`${this.props.post.replies.length} replies`}
-        </Box>
-        {this.props.activePost ? 
-          <RepliesArea
-            post = {this.props.post}
-            user = {this.props.user}
-          /> : null
-        }
+        </Link>
         <hr/>
-      </div>
+      </>
     )
   }
 }

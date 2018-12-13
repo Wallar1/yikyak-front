@@ -2,71 +2,39 @@ import React, { Component, Fragment } from 'react';
 import Post from './post'
 import { Box } from 'rebass'
 import { ActionCable } from 'react-actioncable-provider';
-import { API_ROOT, HEADERS } from './constants';
 import NewPostForm from './new_post_form';
 import ReplyCables from './reply_cables';
 import VoteCables from './vote_cables';
+import { API_ROOT, HEADERS } from '../constants';
 
 export default class Posts extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { 
-      posts: [],
-      activePost: null,
-      user: null,
-    };
-  }
-
-  componentDidMount = () => {
-    fetch(`${API_ROOT}`)
-    .then(res => res.json())
-    .then(res => {
-      this.setState({
-        user: res.user,
-        posts: res.posts
-      })
-    })
-  }
-
-  handleClick = id => {
-    this.setState({activePost: id})
-  }
-
   handleReceivedPost = (response) => {
     const {post} = response
-    let posts = [...this.state.posts]
+    let posts = [...this.props.posts]
     let index = posts.findIndex(p => p.id === post.id)
     if(index < 0){
       posts.push(post)
     }else{
       posts[index] = post
     }
-    this.setState({posts})
-  }
-
-  handleReceivedReply = (response) => {
-    const {reply} = response
-    const posts = [...this.state.posts]
-    const post = posts.find(post => post.id === reply.post_id)
-    post.replies = [...post.replies, reply]
-    this.setState({ posts })
+    this.props.setState({posts})
   }
 
   handleReceivedVote = (response) => {
     let {vote} = response
-    let user = {...this.state.user}
+    let user = {...this.props.user}
     let found_vote = user.votes.find(v => v.id === vote.id)
     if(found_vote){
       found_vote = vote
     }else{
       user.votes = [...user.votes,vote]
     }
-    this.setState({user})
+    this.props.setState({user})
   }
 
   changeVotes = (id, amount) => {
-    const user = this.state.user
+    const user = this.props.user
     let vote = user.votes.find(v => v.post_id === id)
     if(vote === undefined){
       vote = {
@@ -83,7 +51,6 @@ export default class Posts extends Component {
       vote.value = 0;
     }
     this.submit_vote(vote)
-    this.setState({user})
   }
 
   submit_vote = (vote) => {
@@ -103,21 +70,12 @@ export default class Posts extends Component {
     })
   }
 
-  render_reply_cables = () => {
-    if(this.state.posts.length){
-      return <ReplyCables
-        posts = {this.state.posts}
-        handleReceivedReply={this.handleReceivedReply}
-      />
-    }
-  }
-
   render_vote_cables = () => {
-    if(!this.state.user){return null}
-    if(this.state.user.votes.length){
+    if(!this.props.user){return null}
+    if(this.props.user.votes.length){
       return (
         <VoteCables
-          votes = {this.state.user.votes}
+          votes = {this.props.user.votes}
           handleReceivedVote={this.handleReceivedVote}
         />
       )
@@ -131,24 +89,23 @@ export default class Posts extends Component {
           channel = {{channel: 'PostsChannel'}}
           onReceived = {this.handleReceivedPost}
         />
-        {this.render_reply_cables()}
         {this.render_vote_cables()}
+        
         <h2>Posts</h2>
+
+        <NewPostForm />
         <Box p="3">
-          {this.state.posts.map(m => {
+          {this.props.posts.map(m => {
             return (
               <Post
                 key={m.id}
-                activePost={m.id===this.state.activePost}
                 post={m}
-                handleClick={this.handleClick}
-                user={this.state.user}
+                user={this.props.user}
                 changeVotes = {this.changeVotes}
               />
             )
           })}
         </Box>
-        <NewPostForm />
       </Fragment>
     )
   }

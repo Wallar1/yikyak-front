@@ -1,5 +1,5 @@
 import React,{Component,Fragment} from 'react';
-import { API_ROOT, HEADERS } from './constants';
+import { API_ROOT, HEADERS } from '../constants';
 
 export default class NewPostForm extends Component {
   state = {
