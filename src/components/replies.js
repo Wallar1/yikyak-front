@@ -6,9 +6,6 @@ import {Link} from 'react-router-dom'
 import ReplyCables from './reply_cables';
 
 export default class Replies extends Component {
-  constructor(props){
-    super(props)
-  }
 
   handleReceivedReply = (response) => {
     const {reply} = response
@@ -57,7 +54,7 @@ const orderedReplies = replies => {
     return (
       <Li key={r.id}>
         <Flex>
-          <img src={require(`../animal_icons/${r.icon}_128px.png`)} alt={`picture of a ${r.icon}`} />
+          <img src={require(`../animal_icons/${r.icon}_128px.png`)} alt={`${r.icon}`} />
           <Flex pl={40} alignItems='center'>
             <p>{r.content}</p>
           </Flex>

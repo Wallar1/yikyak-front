@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import { API_ROOT, HEADERS, animals } from '../constants';
+import { API_ROOT, HEADERS, ANIMALS } from '../constants';
 
 export default class NewReplyForm extends Component {
   state = {
     content: '',
     post_id: this.props.post_id,
-    icon: animals[Math.floor(Math.random() * animals.length)]
+    icon: ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
   };
 
   componentWillReceiveProps = nextProps => {

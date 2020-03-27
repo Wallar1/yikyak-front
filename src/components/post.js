@@ -1,13 +1,12 @@
 import React,{Component} from 'react'
-import { Box, Flex, Text } from 'rebass'
-import Replies from './replies';
+import { Box, Flex, Text, Image } from 'rebass'
 import { FaRegThumbsDown,  FaRegThumbsUp } from 'react-icons/fa';
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { ANIMALS } from '../constants';
+
+// import animal_icon from "../animal_icons/" + animal + "_128px.png";
 
 export default class Post extends Component{
-  constructor(props){
-    super(props)
-  }
 
   handleClick = (e) => {
     this.props.handleClick(this.props.post.id)
@@ -44,9 +43,14 @@ export default class Post extends Component{
 
   render = () => {
     const vote_style = this.hand_style()
+    // const animal = ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
+    // const animal_icon = import(`../animal_icons/${animal}_128px.png`)
+    // <Image src={animal_icon} variant={`${animal} avatar`}/>
     return (
       <>
         <Flex justifyContent="space-between">
+          <Box>
+          </Box>
           <Box>
             <Text>
               {this.props.post.content}

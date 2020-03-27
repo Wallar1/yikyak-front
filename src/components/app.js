@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import AppRouter from './app_router'
 import { API_ROOT } from '../constants';
 
